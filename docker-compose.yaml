@@ -1,0 +1,31 @@
+version: '3.8'
+
+networks:
+  nginx_net:
+    driver: bridge
+
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - nginx_net
+
+  conversaotemperatura01:
+    image: thalesteo/conversao-temperatura:v1
+    # ports:
+    #   - 8081:8080
+    networks:
+      - nginx_net
+
+  conversaotemperatura02:
+    image: fabricioveronez/conversao-temperatura:v1
+    # ports:
+    #   - 8082:8080
+    networks:
+      - nginx_net
+
